@@ -8,6 +8,7 @@ h1 {
     line-height: 1.5em;
     font-style: normal;
     font-weight: 400;
+    color: white;
     text-rendering: geometricPrecision;
     text-align: center;
 }
