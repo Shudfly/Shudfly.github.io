@@ -18,13 +18,13 @@ window.onmousemove = e => {
   track.dataset.percentage = nextPercentage;
 
   track.animate({
-    transform: `translate(${nextPercentage}%, -50%)`
-  }, { duration: 1200, easing: "ease-in", fill: "forwards" });
+    transform: `translate(${nextPercentage}%, -50%)`,
+  }, { duration: 1200, easing: "ease-in-out", fill: "forwards" });
 
   for(const image of track.getElementsByClassName("image")) {
     image.animate({
       objectPosition: `${100 + nextPercentage}% center`
-    }, { duration: 1200, easing: "ease-in", fill: "forwards" });
+    }, { duration: 1200, easing: "ease-in-out", fill: "forwards" });
   }
 }
 
@@ -39,7 +39,6 @@ window.onmouseup = () => {
 
 track.onmouseenter = () => {
   track.dataset.hovering = "true";
-  if(track.mouseDownAt === "0") return;
   track.animate({
     gap: "6vmin"
   }, { duration: 200, easing: "ease-out", fill: "forwards" });
@@ -48,6 +47,6 @@ track.onmouseenter = () => {
 track.onmouseleave = () => {
   track.dataset.hovering = "false";
   track.animate({
-    gap: "4vmin"
+    gap: track.dataset.mouseDownAt === "0" ? "4vmin" : "8vmin"
   }, { duration: 200, easing: "ease-out", fill: "forwards" });
 }
