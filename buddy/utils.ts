@@ -22,8 +22,7 @@ String.prototype.hashCode = function (seed = 0): number {
 };
 
 String.prototype.formatDate = function (options: any): string {
-  let dateArray = this.split('-');
-  let date = new Date(Date.parse(this));
+  let date = new Date(Date.parse(this as string));
   
   return date.toLocaleDateString('en-US', options);
 }

@@ -28,10 +28,10 @@ window.onload = () => {
     if (!hashValid || !settings.loggedIn) logout();
 
     welcomeTitle.textContent = `Welcome, ${
-      buddyHashes[settings.loginHash]["name"]
+      buddyHashes[settings.loginHash as keyof typeof buddyHashes]["name"]
     }!`;
 
-    parseDayEntries(dayList, buddyHashes[settings.loginHash]["days"]);
+    parseDayEntries(dayList, buddyHashes[settings.loginHash as keyof typeof buddyHashes]["days"]);
   });
 };
 

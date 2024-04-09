@@ -8,13 +8,13 @@ export function loadSettings() {
   for (var key in settings) {
     const item = localStorage.getItem(key);
     if (item === "undefined" || item === null) continue;
-    settings[key] = item;
+    settings[key as keyof typeof settings] = item;
   }
   return settings;
 }
 
 export function saveSetting(key: string, value: string) {
   if (typeof Storage === "undefined") return;
-  settings[key] = value;
+  settings[key as keyof typeof settings] = value;
   localStorage.setItem(key, value);
 }
