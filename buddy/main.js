@@ -1,4 +1,3 @@
-"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -8,9 +7,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-const utils_1 = require("./utils");
-const settings_1 = require("./settings");
+import { getPaletteVars, getBuddyHashes } from "./utils";
+import { settings, loadSettings, saveSetting } from "./settings";
 window.onload = () => {
     var _a;
     const passInput = (_a = document.getElementById("pass_input")) !== null && _a !== void 0 ? _a : new HTMLInputElement();
@@ -30,27 +28,27 @@ window.onload = () => {
     passInput.oninput = () => {
         for (let key in buddyHashes) {
             if (passInput.value.hashCode() === parseInt(key)) {
-                (0, settings_1.saveSetting)("loggedIn", "true");
-                (0, settings_1.saveSetting)("loginHash", key);
+                saveSetting("loggedIn", "true");
+                saveSetting("loginHash", key);
                 window.location.href = "./home/";
             }
         }
     };
-    (0, settings_1.loadSettings)();
+    loadSettings();
     let buddyHashes = {};
-    (0, utils_1.getBuddyHashes)("./data/info.json").then((data) => __awaiter(void 0, void 0, void 0, function* () {
+    getBuddyHashes("./data/info.json").then((data) => __awaiter(void 0, void 0, void 0, function* () {
         buddyHashes = data["buddies"];
-        if (eval(settings_1.settings.loggedIn)) {
+        if (eval(settings.loggedIn)) {
             for (let key in buddyHashes) {
-                if (settings_1.settings.loginHash == key) {
+                if (settings.loginHash == key) {
                     window.location.href = "./home/";
                     return;
                 }
             }
         }
-        (0, settings_1.saveSetting)("loggedIn", "false");
+        saveSetting("loggedIn", "false");
     }));
-    (0, utils_1.getPaletteVars)("https://raw.githubusercontent.com/catppuccin/palette/main/palette.json", "mocha").then((data) => __awaiter(void 0, void 0, void 0, function* () {
+    getPaletteVars("https://raw.githubusercontent.com/catppuccin/palette/main/palette.json", "mocha").then((data) => __awaiter(void 0, void 0, void 0, function* () {
         for (let key in data) {
             document.documentElement.style.setProperty(key, data[key]);
         }

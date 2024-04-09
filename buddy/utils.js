@@ -1,4 +1,3 @@
-"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -8,8 +7,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.getBuddyHashes = exports.getPaletteVars = void 0;
 String.prototype.hashCode = function (seed = 0) {
     let h1 = 0xdeadbeef ^ seed, h2 = 0x41c6ce57 ^ seed;
     for (let i = 0, ch; i < this.length; i++) {
@@ -24,11 +21,10 @@ String.prototype.hashCode = function (seed = 0) {
     return 4294967296 * (2097151 & h2) + (h1 >>> 0);
 };
 String.prototype.formatDate = function (options) {
-    let dateArray = this.split('-');
     let date = new Date(Date.parse(this));
     return date.toLocaleDateString('en-US', options);
 };
-function getPaletteVars(uri, themeID) {
+export function getPaletteVars(uri, themeID) {
     return __awaiter(this, void 0, void 0, function* () {
         let paletteVars = {};
         const response = yield fetch(uri);
@@ -45,8 +41,7 @@ function getPaletteVars(uri, themeID) {
         }
     });
 }
-exports.getPaletteVars = getPaletteVars;
-function getBuddyHashes(uri) {
+export function getBuddyHashes(uri) {
     return __awaiter(this, void 0, void 0, function* () {
         const response = yield fetch(uri);
         const data = yield response.json();
@@ -58,4 +53,3 @@ function getBuddyHashes(uri) {
         }
     });
 }
-exports.getBuddyHashes = getBuddyHashes;
