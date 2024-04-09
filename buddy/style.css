@@ -55,3 +55,9 @@ input {
 input::placeholder {
   color: var(--subtext1-hex);
 }
+
+@media (pointer: none), (pointer: coarse) {
+  #app {
+    width: 100%;
+  }
+}
