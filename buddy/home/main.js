@@ -7,8 +7,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import { loadSettings, saveSetting, settings } from "../settings";
-import { getBuddyHashes, getPaletteVars } from "../utils";
+import { loadSettings, saveSetting, settings } from "../settings.js";
+import { getBuddyHashes, getPaletteVars } from "../utils.js";
 window.onload = () => {
     const welcomeTitle = document.getElementById("welcome");
     const dayList = document.getElementById("day_list");

@@ -1,5 +1,5 @@
-import { loadSettings, saveSetting, settings } from "../settings";
-import { getBuddyHashes, getPaletteVars } from "../utils";
+import { loadSettings, saveSetting, settings } from "../settings.js";
+import { getBuddyHashes, getPaletteVars } from "../utils.js";
 
 window.onload = () => {
   const welcomeTitle = document.getElementById("welcome") as HTMLHeadingElement;

@@ -1,5 +1,5 @@
-import { getPaletteVars, getBuddyHashes } from "./utils";
-import { settings, loadSettings, saveSetting } from "./settings";
+import { getPaletteVars, getBuddyHashes } from "./utils.js";
+import { settings, loadSettings, saveSetting } from "./settings.js";
 
 window.onload = () => {
   const passInput: HTMLInputElement =

@@ -7,8 +7,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import { getPaletteVars, getBuddyHashes } from "./utils";
-import { settings, loadSettings, saveSetting } from "./settings";
+import { getPaletteVars, getBuddyHashes } from "./utils.js";
+import { settings, loadSettings, saveSetting } from "./settings.js";
 window.onload = () => {
     var _a;
     const passInput = (_a = document.getElementById("pass_input")) !== null && _a !== void 0 ? _a : new HTMLInputElement();
