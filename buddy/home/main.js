@@ -42,14 +42,14 @@ function showInstructions(appElement, instructionsElement) {
     instructionsElement.style.setProperty("display", "grid");
     instructionsElement.animate({
         opacity: "100%",
-    }, { duration: 500, fill: "forwards" });
+    }, { duration: 200, fill: "forwards" });
 }
 function hideInstructions(appElement, instructionsElement) {
     appElement.classList.remove("blurred");
     instructionsElement
         .animate({
         opacity: "0%",
-    }, { duration: 500, fill: "forwards" })
+    }, { duration: 200, fill: "forwards" })
         .finished.then(() => {
         instructionsElement.style.setProperty("display", "none");
     });
@@ -90,8 +90,9 @@ function parseDayEntries(appElement, dayEntryContentElement, listElement, dayLis
 }
 function showDayEntryContent(appElement, dayEntryContentElement, type, content) {
     appElement.classList.add("blurred");
-    let childElement;
-    let fadeOutAnim = dayEntryContentElement.animate({ opacity: "0%" }, { duration: 200, fill: "forwards" });
+    let childElements = [];
+    childElements.push(dayEntryContentElement.children[0], dayEntryContentElement.children[1]);
+    let fadeOutAnim = dayEntryContentElement.animate({ opacity: "0%" }, { duration: 100, fill: "forwards" });
     fadeOutAnim.finished.then(() => {
         /*
         dayEntryContentElement.removeChild(
@@ -99,32 +100,44 @@ function showDayEntryContent(appElement, dayEntryContentElement, type, content) 
             dayEntryContentElement.appendChild(document.createElement("div"))
         );
         */
+        let divElement;
+        let passInputElement;
+        let spanElement;
+        let imageElement;
         switch (type) {
             case dayEntryContentTypes.PASSWORD:
-                childElement = document.createElement("div");
-                childElement.classList.add("pass_input_container");
-                let passInputElement = document.createElement("input");
+                divElement = document.createElement("div");
+                divElement.classList.add("pass_input_container");
+                passInputElement = document.createElement("input");
                 initializePassInput(passInputElement, () => {
                     if (passInputElement.value.hashCode() === parseInt(content["passHash"])) {
                         showDayEntryContent(appElement, dayEntryContentElement, dayEntryContentTypes[content["type"]], content);
                     }
                 });
                 passInputElement.placeholder = "password1234";
-                childElement.appendChild(passInputElement);
+                divElement.appendChild(passInputElement);
+                childElements.push(divElement);
                 break;
             case dayEntryContentTypes.TEXT:
-                childElement = document.createElement("span");
-                childElement.textContent = content["text"];
+                spanElement = document.createElement("span");
+                spanElement.textContent = content["text"];
+                childElements.push(spanElement);
                 break;
             case dayEntryContentTypes.IMAGE:
-                childElement = new HTMLImageElement();
+                imageElement = document.createElement("img");
+                childElements.push(imageElement);
                 break;
             case dayEntryContentTypes.TEXT_IMAGE:
-                childElement = new HTMLDivElement();
+                spanElement = document.createElement("span");
+                imageElement = document.createElement("img");
+                childElements.push(spanElement, imageElement);
                 break;
         }
-        dayEntryContentElement.replaceChildren(dayEntryContentElement.children[0], dayEntryContentElement.children[1], childElement);
-        dayEntryContentElement.animate({ opacity: "100%" }, { duration: 500, fill: "forwards" });
+        dayEntryContentElement.replaceChildren();
+        childElements.forEach((element) => {
+            dayEntryContentElement.appendChild(element);
+        });
+        dayEntryContentElement.animate({ opacity: "100%" }, { duration: 200, fill: "forwards" });
     });
     if (dayEntryContentElement.style.getPropertyValue("display") === "none")
         fadeOutAnim.finish();
@@ -133,7 +146,7 @@ function showDayEntryContent(appElement, dayEntryContentElement, type, content) 
 function hideDayEntryContent(appElement, dayEntryContentElement) {
     appElement.classList.remove("blurred");
     dayEntryContentElement
-        .animate({ opacity: "0%" }, { duration: 500, fill: "forwards" })
+        .animate({ opacity: "0%" }, { duration: 200, fill: "forwards" })
         .finished.then(() => {
         dayEntryContentElement.style.setProperty("display", "none");
     });

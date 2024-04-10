@@ -76,7 +76,7 @@ function showInstructions(
     {
       opacity: "100%",
     },
-    { duration: 500, fill: "forwards" }
+    { duration: 200, fill: "forwards" }
   );
 }
 
@@ -91,7 +91,7 @@ function hideInstructions(
       {
         opacity: "0%",
       },
-      { duration: 500, fill: "forwards" }
+      { duration: 200, fill: "forwards" }
     )
     .finished.then(() => {
       instructionsElement.style.setProperty("display", "none");
@@ -160,11 +160,16 @@ function showDayEntryContent(
   content: any
 ) {
   appElement.classList.add("blurred");
-  let childElement: HTMLElement;
+  let childElements: Array<HTMLElement> = [];
+
+  childElements.push(
+    dayEntryContentElement.children[0] as HTMLElement,
+    dayEntryContentElement.children[1] as HTMLElement
+  );
 
   let fadeOutAnim = dayEntryContentElement.animate(
     { opacity: "0%" },
-    { duration: 200, fill: "forwards" }
+    { duration: 100, fill: "forwards" }
   );
   fadeOutAnim.finished.then(() => {
     /*
@@ -174,11 +179,17 @@ function showDayEntryContent(
     );
     */
 
+    let divElement: HTMLDivElement;
+    let passInputElement: HTMLInputElement;
+    let spanElement: HTMLSpanElement;
+    let imageElement: HTMLImageElement;
+
     switch (type) {
       case dayEntryContentTypes.PASSWORD:
-        childElement = document.createElement("div");
-        childElement.classList.add("pass_input_container");
-        let passInputElement = document.createElement("input");
+        divElement = document.createElement("div");
+        divElement.classList.add("pass_input_container");
+
+        passInputElement = document.createElement("input");
         initializePassInput(passInputElement, () => {
           if (
             passInputElement.value.hashCode() === parseInt(content["passHash"])
@@ -194,28 +205,33 @@ function showDayEntryContent(
           }
         });
         passInputElement.placeholder = "password1234";
-        childElement.appendChild(passInputElement);
+
+        divElement.appendChild(passInputElement);
+        childElements.push(divElement);
         break;
       case dayEntryContentTypes.TEXT:
-        childElement = document.createElement("span");
-        childElement.textContent = content["text"];
+        spanElement = document.createElement("span");
+        spanElement.textContent = content["text"];
+        childElements.push(spanElement);
         break;
       case dayEntryContentTypes.IMAGE:
-        childElement = new HTMLImageElement();
+        imageElement = document.createElement("img");
+        childElements.push(imageElement)
         break;
       case dayEntryContentTypes.TEXT_IMAGE:
-        childElement = new HTMLDivElement();
+        spanElement = document.createElement("span");
+        imageElement = document.createElement("img");
+        childElements.push(spanElement, imageElement);
         break;
     }
 
-    dayEntryContentElement.replaceChildren(
-      dayEntryContentElement.children[0],
-      dayEntryContentElement.children[1],
-      childElement
-    );
+    dayEntryContentElement.replaceChildren();
+    childElements.forEach((element) => {
+      dayEntryContentElement.appendChild(element);
+    });
     dayEntryContentElement.animate(
       { opacity: "100%" },
-      { duration: 500, fill: "forwards" }
+      { duration: 200, fill: "forwards" }
     );
   });
 
@@ -232,7 +248,7 @@ function hideDayEntryContent(
   appElement.classList.remove("blurred");
 
   dayEntryContentElement
-    .animate({ opacity: "0%" }, { duration: 500, fill: "forwards" })
+    .animate({ opacity: "0%" }, { duration: 200, fill: "forwards" })
     .finished.then(() => {
       dayEntryContentElement.style.setProperty("display", "none");
     });
