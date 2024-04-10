@@ -8,7 +8,8 @@
           "date": "04-07-2024",
           "description": "I gave you the password for the website and wrote a little note...",
           "content": {
-            "type": "TEXT"
+            "type": "TEXT",
+            "text": "You received a short note about how COOL and AWESOME you are and you got access to an (unfinished) website."
           }
         },
         {
@@ -16,7 +17,8 @@
           "date": "04-08-2024",
           "description": "Boba and a refresher on how the website works.",
           "content": {
-            "type": "TEXT"
+            "type": "TEXT",
+            "text": "I love thai tea boba with sea salt cream, double boba, and oat milk..."
           }
         },
         {
@@ -32,10 +34,11 @@
         {
           "name": "Hell Week Day 4",
           "date": "04-10-2024",
-          "description": "in progress",
+          "description": "Smoothie. Good luck!",
           "content": {
             "passHash": "5144457709437809",
-            "type": "TEXT"
+            "type": "TEXT",
+            "text": "There's a smoothie in a birthday suit under the resting place for the unoccupied.  Do you like strawberry and kiwi?"
           }
         },
         {
@@ -43,6 +46,7 @@
           "date": "04-11-2024",
           "description": "in progress",
           "content": {
+            "passHash": "337121176364309",
             "type": "TEXT"
           }
         },
