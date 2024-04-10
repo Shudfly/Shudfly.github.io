@@ -1,6 +1,7 @@
 export let settings = {
   loggedIn: "true",
-  loginHash: "0"
+  loginHash: "0",
+  firstTime: "true"
 }
 
 export function loadSettings() {
@@ -11,6 +12,10 @@ export function loadSettings() {
     settings[key as keyof typeof settings] = item;
   }
   return settings;
+}
+
+export function getSetting(key: string): any {
+  return settings[key as keyof typeof settings];
 }
 
 export function saveSetting(key: string, value: string) {

@@ -1,6 +1,7 @@
 export let settings = {
     loggedIn: "true",
-    loginHash: "0"
+    loginHash: "0",
+    firstTime: "true"
 };
 export function loadSettings() {
     if (typeof Storage === "undefined")
@@ -12,6 +13,9 @@ export function loadSettings() {
         settings[key] = item;
     }
     return settings;
+}
+export function getSetting(key) {
+    return settings[key];
 }
 export function saveSetting(key, value) {
     if (typeof Storage === "undefined")

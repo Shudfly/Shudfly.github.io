@@ -1,5 +1,5 @@
-import { getPaletteVars, getBuddyHashes } from "./utils.js";
-import { settings, loadSettings, saveSetting } from "./settings.js";
+import { getBuddyInfo, initializePage } from "./utils.js";
+import { saveSetting, getSetting } from "./settings.js";
 
 window.onload = () => {
   const passInput: HTMLInputElement =
@@ -33,29 +33,20 @@ window.onload = () => {
     }
   };
 
-  loadSettings();
-  let buddyHashes: any = {};
-  getBuddyHashes("./data/info.json").then(async (data) => {
+  initializePage();
+  let buddyHashes = {};
+  getBuddyInfo().then(async (data) => {
     buddyHashes = data["buddies"];
+    console.log(buddyHashes);
 
-    if (eval(settings.loggedIn)) {
+    if (eval(getSetting("loggedIn"))) {
       for (let key in buddyHashes) {
-        if (settings.loginHash == key) {
+        console.log(key);
+        
+        if (getSetting("loginHash") == key) {
           window.location.href = "./home/";
-          return;
         }
       }
-    }
-
-    saveSetting("loggedIn", "false");
-  });
-
-  getPaletteVars(
-    "https://raw.githubusercontent.com/catppuccin/palette/main/palette.json",
-    "mocha"
-  ).then(async (data) => {
-    for (let key in data) {
-      document.documentElement.style.setProperty(key, data[key]);
     }
   });
 };

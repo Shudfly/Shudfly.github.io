@@ -28,6 +28,28 @@
   user-select: none;
 }
 
+.blurred {
+  filter: blur(2px) grayscale();
+}
+
+.icon_button {
+  display: block;
+
+  width: 2.3rem;
+  height: 2.3rem;
+  padding: 0.3rem;
+
+  border-radius: 8px;
+
+  transition: background 0.2s;
+}
+.icon_button svg {
+  transition: fill 0.2s;
+}
+.icon_button:hover svg {
+  fill: var(--mauve-hex);
+}
+
 body {
   margin: 0;
   min-width: 320px;
@@ -40,6 +62,8 @@ body {
   width: 33vw;
   margin: 0 auto;
   padding: 2rem;
+
+  transition: filter 0.5s;
 }
 
 h1 {
@@ -47,9 +71,18 @@ h1 {
   line-height: 1.1;
 }
 
+h2 {
+  font-size: 2rem;
+  line-height: 1.1;
+}
+
 h3 {
-  font-size: 1em;
+  font-size: 1.3em;
   color: var(--subtext0-hex);
+}
+
+li {
+  text-align: left;
 }
 
 #day_list {
@@ -65,7 +98,7 @@ h3 {
   height: 10rem;
   padding: 0.3rem;
 
-  border: solid 1px var(--base-hex);
+  border: solid 1px var(--mantle-hex);
   border-radius: 10px;
   background: linear-gradient(
     to bottom right,
@@ -81,7 +114,7 @@ h3 {
     var(--base-hex)
   );
 }
-.day_entry:hover {
+#app:not(.blurred) .day_entry:hover {
   border-color: var(--mauve-hex);
   background: var(--base-hex);
 
@@ -137,7 +170,6 @@ h3 {
 }
 .locked_entry .day_info {
   color: var(--subtext0-hex);
-  filter: blur(2px);
 }
 
 .lock_icon {
@@ -147,7 +179,60 @@ h3 {
   height: 80%;
 }
 
-input {
+.popup {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  width: 50vw;
+  border-radius: 20px;
+
+  opacity: 0%;
+  background: var(--surface0-hex);
+  filter: drop-shadow(5px 5px 5px var(--crust-hex));
+}
+
+#instructions {
+  height: fit-content;
+}
+#instr_close_label {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+}
+#instr_close_label:hover {
+  background: var(--surface1-hex);
+}
+
+#day_entry_content {
+  min-height: 50vh;
+}
+#day_entry_content span {
+  margin: auto;
+  width: 33%;
+}
+
+#daenco_close_label {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+}
+#daenco_close_label:hover {
+  background: var(--surface1-hex);
+}
+
+.pass_input_container {
+  margin: auto;
+  padding: 0 0.6em;
+  width: 33%;
+  height: 3rem;
+  border-radius: 8px;
+  background-color: var(--surface1-hex);
+}
+
+.pass_input {
   color: var(--text-hex);
   font-size: 1em;
   width: 100%;
@@ -158,12 +243,28 @@ input {
   overflow-wrap: anywhere;
   text-align: center;
 }
-input::placeholder {
+.pass_input::placeholder {
   color: var(--subtext1-hex);
 }
 
 @media (pointer: none), (pointer: coarse) {
+  h1 {
+    font-size: 1.6rem;
+  }
+
+  h2 {
+    font-size: 1.3rem;
+  }
+
+  h3 {
+    font-size: 1rem;
+  }
+
   #app {
     width: 100%;
+  }
+
+  #instructions {
+    width: 95vw;
   }
 }

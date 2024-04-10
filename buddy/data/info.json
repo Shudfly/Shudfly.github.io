@@ -6,48 +6,68 @@
         {
           "name": "Hell Week Day 1",
           "date": "04-07-2024",
-          "description": "I gave you the password for the website and wrote a little note..."
+          "description": "I gave you the password for the website and wrote a little note...",
+          "content": {
+            "type": "TEXT"
+          }
         },
         {
           "name": "Hell Week Day 2",
           "date": "04-08-2024",
-          "description": "Boba and a refresher on how the website works."
+          "description": "Boba and a refresher on how the website works.",
+          "content": {
+            "type": "TEXT"
+          }
         },
         {
           "name": "Hell Week Day 3",
           "date": "04-09-2024",
-          "description": "in progress",
-          "passHash": "3897498273"
+          "description": "A legendary little Lays scavenger hunt.",
+          "content": {
+            "passHash": "3193400791162823",
+            "type": "TEXT",
+            "text": "The chips are in an ancient stage right sound device, but it's closer to the forklift than anything else."
+          }
         },
         {
           "name": "Hell Week Day 4",
           "date": "04-10-2024",
           "description": "in progress",
-          "passHash": "3897498273"
+          "content": {
+            "type": "TEXT"
+          }
         },
         {
           "name": "Final Dress",
           "date": "04-11-2024",
           "description": "in progress",
-          "passHash": "3897498273"
+          "content": {
+            "type": "TEXT"
+          }
         },
         {
           "name": "Opening Night",
           "date": "04-12-2024",
           "description": "in progress",
-          "passHash": "3897498273"
+          "content": {
+            "type": "TEXT"
+          }
         },
         {
           "name": "Understudy Night",
           "date": "04-20-2024",
           "description": "in progress",
-          "passHash": "3897498273"
+          "content": {
+            "type": "TEXT"
+          }
         },
         {
           "name": "Closing Matinee",
           "date": "04-27-2024",
           "description": "in progress",
-          "passHash": "3897498273"
+          "content": {
+            "type": "TEXT"
+          }
         }
       ]
     }

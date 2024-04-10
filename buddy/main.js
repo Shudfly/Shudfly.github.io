@@ -7,8 +7,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import { getPaletteVars, getBuddyHashes } from "./utils.js";
-import { settings, loadSettings, saveSetting } from "./settings.js";
+import { getBuddyInfo, initializePage } from "./utils.js";
+import { saveSetting, getSetting } from "./settings.js";
 window.onload = () => {
     var _a;
     const passInput = (_a = document.getElementById("pass_input")) !== null && _a !== void 0 ? _a : new HTMLInputElement();
@@ -34,23 +34,18 @@ window.onload = () => {
             }
         }
     };
-    loadSettings();
+    initializePage();
     let buddyHashes = {};
-    getBuddyHashes("./data/info.json").then((data) => __awaiter(void 0, void 0, void 0, function* () {
+    getBuddyInfo().then((data) => __awaiter(void 0, void 0, void 0, function* () {
         buddyHashes = data["buddies"];
-        if (eval(settings.loggedIn)) {
+        console.log(buddyHashes);
+        if (eval(getSetting("loggedIn"))) {
             for (let key in buddyHashes) {
-                if (settings.loginHash == key) {
+                console.log(key);
+                if (getSetting("loginHash") == key) {
                     window.location.href = "./home/";
-                    return;
                 }
             }
-        }
-        saveSetting("loggedIn", "false");
-    }));
-    getPaletteVars("https://raw.githubusercontent.com/catppuccin/palette/main/palette.json", "mocha").then((data) => __awaiter(void 0, void 0, void 0, function* () {
-        for (let key in data) {
-            document.documentElement.style.setProperty(key, data[key]);
         }
     }));
 };

@@ -7,6 +7,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+import { loadSettings, saveSetting, settings } from "./settings";
 String.prototype.hashCode = function (seed = 0) {
     let h1 = 0xdeadbeef ^ seed, h2 = 0x41c6ce57 ^ seed;
     for (let i = 0, ch; i < this.length; i++) {
@@ -22,8 +23,45 @@ String.prototype.hashCode = function (seed = 0) {
 };
 String.prototype.formatDate = function (options) {
     let date = new Date(Date.parse(this));
-    return date.toLocaleDateString('en-US', options);
+    return date.toLocaleDateString("en-US", options);
 };
+export var dayEntryContentTypes;
+(function (dayEntryContentTypes) {
+    dayEntryContentTypes[dayEntryContentTypes["PASSWORD"] = 0] = "PASSWORD";
+    dayEntryContentTypes[dayEntryContentTypes["TEXT"] = 1] = "TEXT";
+    dayEntryContentTypes[dayEntryContentTypes["IMAGE"] = 2] = "IMAGE";
+    dayEntryContentTypes[dayEntryContentTypes["TEXT_IMAGE"] = 3] = "TEXT_IMAGE";
+})(dayEntryContentTypes || (dayEntryContentTypes = {}));
+export function initializePage() {
+    return __awaiter(this, void 0, void 0, function* () {
+        loadSettings();
+        getPaletteVars("https://raw.githubusercontent.com/catppuccin/palette/main/palette.json", "mocha").then((data) => __awaiter(this, void 0, void 0, function* () {
+            for (let key in data) {
+                document.documentElement.style.setProperty(key, data[key]);
+            }
+        }), (reason) => __awaiter(this, void 0, void 0, function* () {
+            return Promise.reject(reason);
+        }));
+        checkLoginValidity();
+    });
+}
+export function initializePassInput(element, onInput) {
+    element.classList.add("pass_input");
+    element.oninput = onInput;
+    element.onfocus = () => {
+        var _a;
+        (_a = element.parentElement) === null || _a === void 0 ? void 0 : _a.animate({
+            background: "var(--surface0-hex)",
+            border: "solid 1px var(--mauve-hex)",
+        }, { duration: 100, fill: "forwards" });
+    };
+    element.addEventListener("focusout", () => {
+        var _a;
+        (_a = element.parentElement) === null || _a === void 0 ? void 0 : _a.animate({
+            border: "solid 1px var(--red-hex)",
+        }, { duration: 100, fill: "forwards" });
+    });
+}
 export function getPaletteVars(uri, themeID) {
     return __awaiter(this, void 0, void 0, function* () {
         let paletteVars = {};
@@ -41,9 +79,9 @@ export function getPaletteVars(uri, themeID) {
         }
     });
 }
-export function getBuddyHashes(uri) {
+export function getBuddyInfo() {
     return __awaiter(this, void 0, void 0, function* () {
-        const response = yield fetch(uri);
+        const response = yield fetch("/buddy/data/info.json", { cache: "no-store" });
         const data = yield response.json();
         if (response.ok) {
             return data;
@@ -52,4 +90,43 @@ export function getBuddyHashes(uri) {
             return Promise.reject();
         }
     });
+}
+export function checkLoginValidity() {
+    if (!eval(settings.loggedIn)) {
+        logout();
+    }
+    getBuddyInfo().then((data) => __awaiter(this, void 0, void 0, function* () {
+        let valid = false;
+        for (let key in data["buddies"]) {
+            if (settings.loginHash === key) {
+                valid = true;
+                break;
+            }
+        }
+        if (!valid)
+            logout();
+    }), () => {
+        logout();
+    });
+}
+/*
+export function rotateElement(element: HTMLElement, by: number) {
+  let transformValue = element.style.getPropertyValue("transform");
+  let prevRotation = transformValue.match("/(?!rotate\()\d+\w*(?=\))/g")?.join();
+
+  if (prevRotation === "" || prevRotation === null) {
+    element.style.setProperty("transform", `${transformValue} rotate(${by}deg)`);
+    return;
+  }
+
+  let newRotation = prevRotation?.match("/\d+/g")
+
+  element.style.setProperty(transformValue.replace)
+}
+*/
+export function logout() {
+    saveSetting("loggedIn", "false");
+    saveSetting("loginHash", "0");
+    if (!window.location.href.endsWith("buddy/"))
+        window.location.href = "/buddy/";
 }
