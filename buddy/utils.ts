@@ -33,6 +33,7 @@ export {};
 
 export enum dayEntryContentTypes {
   PASSWORD,
+  TEXT_PASSWORD,
   TEXT,
   IMAGE,
   TEXT_IMAGE

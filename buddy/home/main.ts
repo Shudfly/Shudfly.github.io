@@ -129,11 +129,6 @@ function parseDayEntries(
         showDayEntryContent(
           appElement,
           dayEntryContentElement,
-          element["content"]["passHash"] !== undefined
-            ? dayEntryContentTypes.PASSWORD
-            : dayEntryContentTypes[
-                element["content"]["type"] as keyof typeof dayEntryContentTypes
-              ],
           element["content"]
         );
       };
@@ -156,7 +151,6 @@ function parseDayEntries(
 function showDayEntryContent(
   appElement: HTMLElement,
   dayEntryContentElement: HTMLElement,
-  type: dayEntryContentTypes,
   content: any
 ) {
   appElement.classList.add("blurred");
@@ -184,7 +178,7 @@ function showDayEntryContent(
     let spanElement: HTMLSpanElement;
     let imageElement: HTMLImageElement;
 
-    switch (type) {
+    switch (dayEntryContentTypes[content["type"] as keyof typeof dayEntryContentTypes]) {
       case dayEntryContentTypes.PASSWORD:
         divElement = document.createElement("div");
         divElement.classList.add("pass_input_container");
@@ -197,10 +191,31 @@ function showDayEntryContent(
             showDayEntryContent(
               appElement,
               dayEntryContentElement,
-              dayEntryContentTypes[
-                content["type"] as keyof typeof dayEntryContentTypes
-              ],
-              content
+              content["content"]
+            );
+          }
+        });
+        passInputElement.placeholder = "password1234";
+
+        divElement.appendChild(passInputElement);
+        childElements.push(divElement);
+        break;
+      case dayEntryContentTypes.TEXT_PASSWORD:
+        spanElement = document.createElement("span");
+        spanElement.textContent = content["text"];
+
+        divElement = document.createElement("div");
+        divElement.classList.add("pass_input_container");
+
+        passInputElement = document.createElement("input");
+        initializePassInput(passInputElement, () => {
+          if (
+            passInputElement.value.hashCode() === parseInt(content["passHash"])
+          ) {
+            showDayEntryContent(
+              appElement,
+              dayEntryContentElement,
+              content["content"]
             );
           }
         });
@@ -216,7 +231,7 @@ function showDayEntryContent(
         break;
       case dayEntryContentTypes.IMAGE:
         imageElement = document.createElement("img");
-        childElements.push(imageElement)
+        childElements.push(imageElement);
         break;
       case dayEntryContentTypes.TEXT_IMAGE:
         spanElement = document.createElement("span");

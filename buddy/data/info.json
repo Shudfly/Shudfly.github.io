@@ -27,8 +27,11 @@
           "description": "A legendary little Lays scavenger hunt.",
           "content": {
             "passHash": "3193400791162823",
-            "type": "TEXT",
-            "text": "The chips are in an ancient stage right sound device, but it's closer to the forklift than anything else."
+            "type": "PASSWORD",
+            "content": {
+              "type": "TEXT",
+              "text": "The chips are in an ancient stage right sound device, but it's closer to the forklift than anything else."
+            }
           }
         },
         {
@@ -37,8 +40,11 @@
           "description": "Smoothie. Good luck!",
           "content": {
             "passHash": "5144457709437809",
-            "type": "TEXT",
-            "text": "There's a smoothie in a birthday suit under the resting place for the unoccupied.  Do you like strawberry and kiwi?"
+            "type": "PASSWORD",
+            "content": {
+              "type": "TEXT",
+              "text": "There's a smoothie in a birthday suit under the resting place for the unoccupied.  Do you like strawberry and kiwi?"
+            }
           }
         },
         {

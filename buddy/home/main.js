@@ -74,9 +74,7 @@ function parseDayEntries(appElement, dayEntryContentElement, listElement, dayLis
             curEntry.onclick = () => {
                 if (appElement.classList.contains("blurred"))
                     return;
-                showDayEntryContent(appElement, dayEntryContentElement, element["content"]["passHash"] !== undefined
-                    ? dayEntryContentTypes.PASSWORD
-                    : dayEntryContentTypes[element["content"]["type"]], element["content"]);
+                showDayEntryContent(appElement, dayEntryContentElement, element["content"]);
             };
         }
         curEntry.children[0].children[0].textContent = element["name"];
@@ -88,7 +86,7 @@ function parseDayEntries(appElement, dayEntryContentElement, listElement, dayLis
     dayEntryTemplate.remove();
     lockedEntryTemplate.remove();
 }
-function showDayEntryContent(appElement, dayEntryContentElement, type, content) {
+function showDayEntryContent(appElement, dayEntryContentElement, content) {
     appElement.classList.add("blurred");
     let childElements = [];
     childElements.push(dayEntryContentElement.children[0], dayEntryContentElement.children[1]);
@@ -104,14 +102,29 @@ function showDayEntryContent(appElement, dayEntryContentElement, type, content) 
         let passInputElement;
         let spanElement;
         let imageElement;
-        switch (type) {
+        switch (dayEntryContentTypes[content["type"]]) {
             case dayEntryContentTypes.PASSWORD:
                 divElement = document.createElement("div");
                 divElement.classList.add("pass_input_container");
                 passInputElement = document.createElement("input");
                 initializePassInput(passInputElement, () => {
                     if (passInputElement.value.hashCode() === parseInt(content["passHash"])) {
-                        showDayEntryContent(appElement, dayEntryContentElement, dayEntryContentTypes[content["type"]], content);
+                        showDayEntryContent(appElement, dayEntryContentElement, content["content"]);
+                    }
+                });
+                passInputElement.placeholder = "password1234";
+                divElement.appendChild(passInputElement);
+                childElements.push(divElement);
+                break;
+            case dayEntryContentTypes.TEXT_PASSWORD:
+                spanElement = document.createElement("span");
+                spanElement.textContent = content["text"];
+                divElement = document.createElement("div");
+                divElement.classList.add("pass_input_container");
+                passInputElement = document.createElement("input");
+                initializePassInput(passInputElement, () => {
+                    if (passInputElement.value.hashCode() === parseInt(content["passHash"])) {
+                        showDayEntryContent(appElement, dayEntryContentElement, content["content"]);
                     }
                 });
                 passInputElement.placeholder = "password1234";

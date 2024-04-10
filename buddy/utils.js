@@ -28,9 +28,10 @@ String.prototype.formatDate = function (options) {
 export var dayEntryContentTypes;
 (function (dayEntryContentTypes) {
     dayEntryContentTypes[dayEntryContentTypes["PASSWORD"] = 0] = "PASSWORD";
-    dayEntryContentTypes[dayEntryContentTypes["TEXT"] = 1] = "TEXT";
-    dayEntryContentTypes[dayEntryContentTypes["IMAGE"] = 2] = "IMAGE";
-    dayEntryContentTypes[dayEntryContentTypes["TEXT_IMAGE"] = 3] = "TEXT_IMAGE";
+    dayEntryContentTypes[dayEntryContentTypes["TEXT_PASSWORD"] = 1] = "TEXT_PASSWORD";
+    dayEntryContentTypes[dayEntryContentTypes["TEXT"] = 2] = "TEXT";
+    dayEntryContentTypes[dayEntryContentTypes["IMAGE"] = 3] = "IMAGE";
+    dayEntryContentTypes[dayEntryContentTypes["TEXT_IMAGE"] = 4] = "TEXT_IMAGE";
 })(dayEntryContentTypes || (dayEntryContentTypes = {}));
 export function initializePage() {
     return __awaiter(this, void 0, void 0, function* () {
