@@ -63,7 +63,7 @@ body {
   margin: 0 auto;
   padding: 2rem;
 
-  transition: filter 0.5s;
+  transition: filter 0.2s;
 }
 
 h1 {
@@ -264,7 +264,16 @@ li {
     width: 100%;
   }
 
-  #instructions {
+  .popup {
     width: 95vw;
+  }
+
+  #day_entry_content {
+    height: min-content;
+  }
+  #day_entry_content div,
+  #day_entry_content span,
+  #day_entry_content img {
+    width: 80%;
   }
 }
