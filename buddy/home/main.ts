@@ -202,7 +202,7 @@ function showDayEntryContent(
         break;
       case dayEntryContentTypes.TEXT_PASSWORD:
         spanElement = document.createElement("span");
-        spanElement.textContent = content["text"];
+        spanElement.textContent = atob(content["encodedText"]);
 
         divElement = document.createElement("div");
         divElement.classList.add("pass_input_container");
@@ -226,7 +226,7 @@ function showDayEntryContent(
         break;
       case dayEntryContentTypes.TEXT:
         spanElement = document.createElement("span");
-        spanElement.textContent = content["text"];
+        spanElement.textContent = atob(content["encodedText"]);
         childElements.push(spanElement);
         break;
       case dayEntryContentTypes.IMAGE:

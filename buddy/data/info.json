@@ -9,7 +9,7 @@
           "description": "I gave you the password for the website and wrote a little note...",
           "content": {
             "type": "TEXT",
-            "text": "You received a short note about how COOL and AWESOME you are and you got access to an (unfinished) website."
+            "encodedText": "WW91IHJlY2VpdmVkIGEgc2hvcnQgbm90ZSBhYm91dCBob3cgQ09PTCBhbmQgQVdFU09NRSB5b3UgYXJlIGFuZCB5b3UgZ290IGFjY2VzcyB0byBhbiAodW5maW5pc2hlZCkgd2Vic2l0ZS4="
           }
         },
         {
@@ -18,7 +18,7 @@
           "description": "Boba and a refresher on how the website works.",
           "content": {
             "type": "TEXT",
-            "text": "I love thai tea boba with sea salt cream, double boba, and oat milk..."
+            "encodedText": "SSBsb3ZlIHRoYWkgdGVhIGJvYmEgd2l0aCBzZWEgc2FsdCBjcmVhbSwgZG91YmxlIGJvYmEsIGFuZCBvYXQgbWlsay4uLg=="
           }
         },
         {
@@ -30,7 +30,7 @@
             "type": "PASSWORD",
             "content": {
               "type": "TEXT",
-              "text": "The chips are in an ancient stage right sound device, but it's closer to the forklift than anything else."
+              "encodedText": "VGhlIGNoaXBzIGFyZSBpbiBhbiBhbmNpZW50IHN0YWdlIHJpZ2h0IHNvdW5kIGRldmljZSwgYnV0IGl0J3MgY2xvc2VyIHRvIHRoZSBmb3JrbGlmdCB0aGFuIGFueXRoaW5nIGVsc2Uu"
             }
           }
         },
@@ -43,7 +43,7 @@
             "type": "PASSWORD",
             "content": {
               "type": "TEXT",
-              "text": "There's a smoothie in a birthday suit under the resting place for the unoccupied.  Hope you like strawberry and kiwi!"
+              "encodedText": "VGhlcmUncyBhIHNtb290aGllIGluIGEgYmlydGhkYXkgc3VpdCB1bmRlciB0aGUgcmVzdGluZyBwbGFjZSBmb3IgdGhlIHVub2NjdXBpZWQuICBIb3BlIHlvdSBsaWtlIHN0cmF3YmVycnkgYW5kIGtpd2kh" 
             }
           }
         },
