@@ -1,4 +1,4 @@
-import { loadSettings, saveSetting, settings } from "./settings";
+import { loadSettings, saveSetting, settings } from "./settings.js";
 
 declare global {
   interface String {

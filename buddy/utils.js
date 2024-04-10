@@ -7,7 +7,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import { loadSettings, saveSetting, settings } from "./settings";
+import { loadSettings, saveSetting, settings } from "./settings.js";
 String.prototype.hashCode = function (seed = 0) {
     let h1 = 0xdeadbeef ^ seed, h2 = 0x41c6ce57 ^ seed;
     for (let i = 0, ch; i < this.length; i++) {
