@@ -7,7 +7,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import { loadSettings, saveSetting, settings } from "./settings.js";
+import { getSetting, loadSettings, saveSetting } from "./settings.js";
 String.prototype.hashCode = function (seed = 0) {
     let h1 = 0xdeadbeef ^ seed, h2 = 0x41c6ce57 ^ seed;
     for (let i = 0, ch; i < this.length; i++) {
@@ -33,6 +33,7 @@ export var dayEntryContentTypes;
     dayEntryContentTypes[dayEntryContentTypes["IMAGE"] = 3] = "IMAGE";
     dayEntryContentTypes[dayEntryContentTypes["TEXT_IMAGE"] = 4] = "TEXT_IMAGE";
 })(dayEntryContentTypes || (dayEntryContentTypes = {}));
+export let buddyInfo;
 export function initializePage() {
     return __awaiter(this, void 0, void 0, function* () {
         loadSettings();
@@ -93,13 +94,14 @@ export function getBuddyInfo() {
     });
 }
 export function checkLoginValidity() {
-    if (!eval(settings.loggedIn)) {
+    if (!eval(getSetting("loginHash"))) {
         logout();
     }
     getBuddyInfo().then((data) => __awaiter(this, void 0, void 0, function* () {
+        buddyInfo = data;
         let valid = false;
-        for (let key in data["buddies"]) {
-            if (settings.loginHash === key) {
+        for (let key in buddyInfo.buddies) {
+            if (getSetting("loginHash") === key) {
                 valid = true;
                 break;
             }

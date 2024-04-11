@@ -7,78 +7,94 @@
           "name": "Hell Week Day 1",
           "date": "04-07-2024",
           "description": "I gave you the password for the website and wrote a little note...",
-          "content": {
-            "type": "TEXT",
-            "encodedText": "WW91IHJlY2VpdmVkIGEgc2hvcnQgbm90ZSBhYm91dCBob3cgQ09PTCBhbmQgQVdFU09NRSB5b3UgYXJlIGFuZCB5b3UgZ290IGFjY2VzcyB0byBhbiAodW5maW5pc2hlZCkgd2Vic2l0ZS4="
-          }
+          "content": [
+            {
+              "type": "TEXT",
+              "encodedText": "WW91IHJlY2VpdmVkIGEgc2hvcnQgbm90ZSBhYm91dCBob3cgQ09PTCBhbmQgQVdFU09NRSB5b3UgYXJlIGFuZCB5b3UgZ290IGFjY2VzcyB0byBhbiAodW5maW5pc2hlZCkgd2Vic2l0ZS4="
+            }
+          ]
         },
         {
           "name": "Hell Week Day 2",
           "date": "04-08-2024",
           "description": "Boba and a refresher on how the website works.",
-          "content": {
-            "type": "TEXT",
-            "encodedText": "SSBsb3ZlIHRoYWkgdGVhIGJvYmEgd2l0aCBzZWEgc2FsdCBjcmVhbSwgZG91YmxlIGJvYmEsIGFuZCBvYXQgbWlsay4uLg=="
-          }
+          "content": [
+            {
+              "type": "TEXT",
+              "encodedText": "SSBsb3ZlIHRoYWkgdGVhIGJvYmEgd2l0aCBzZWEgc2FsdCBjcmVhbSwgZG91YmxlIGJvYmEsIGFuZCBvYXQgbWlsay4uLg=="
+            }
+          ]
         },
         {
           "name": "Hell Week Day 3",
           "date": "04-09-2024",
           "description": "A legendary little Lays scavenger hunt.",
-          "content": {
-            "passHash": "3193400791162823",
-            "type": "PASSWORD",
-            "content": {
+          "content": [
+            {
+              "type": "PASSWORD",
+              "passHash": "3193400791162823"
+            },
+            {
               "type": "TEXT",
               "encodedText": "VGhlIGNoaXBzIGFyZSBpbiBhbiBhbmNpZW50IHN0YWdlIHJpZ2h0IHNvdW5kIGRldmljZSwgYnV0IGl0J3MgY2xvc2VyIHRvIHRoZSBmb3JrbGlmdCB0aGFuIGFueXRoaW5nIGVsc2Uu"
             }
-          }
+          ]
         },
         {
           "name": "Hell Week Day 4",
           "date": "04-10-2024",
           "description": "Smoothie. Good luck!",
-          "content": {
-            "passHash": "5394876339032573",
-            "type": "PASSWORD",
-            "content": {
+          "content": [
+            {
+              "type": "PASSWORD",
+              "passHash": "5394876339032573"
+            },
+            {
               "type": "TEXT",
-              "encodedText": "VGhlcmUncyBhIHNtb290aGllIGluIGEgYmlydGhkYXkgc3VpdCB1bmRlciB0aGUgcmVzdGluZyBwbGFjZSBmb3IgdGhlIHVub2NjdXBpZWQuICBIb3BlIHlvdSBsaWtlIHN0cmF3YmVycnkgYmFuYW5hIQ==" 
+              "encodedText": "VGhlcmUncyBhIHNtb290aGllIGluIGEgYmlydGhkYXkgc3VpdCB1bmRlciB0aGUgcmVzdGluZyBwbGFjZSBmb3IgdGhlIHVub2NjdXBpZWQuICBIb3BlIHlvdSBsaWtlIHN0cmF3YmVycnkgYmFuYW5hIQ=="
             }
-          }
+          ]
         },
         {
           "name": "Final Dress",
           "date": "04-11-2024",
           "description": "in progress",
-          "content": {
-            "passHash": "337121176364309",
-            "type": "TEXT"
-          }
+          "content": [
+            {
+              "type": "PASSWORD",
+              "passHash": "337121176364309"
+            }
+          ]
         },
         {
           "name": "Opening Night",
           "date": "04-12-2024",
           "description": "in progress",
-          "content": {
-            "type": "TEXT"
-          }
+          "content": [
+            {
+              "type": "TEXT"
+            }
+          ]
         },
         {
           "name": "Understudy Night",
           "date": "04-20-2024",
           "description": "in progress",
-          "content": {
-            "type": "TEXT"
-          }
+          "content": [
+            {
+              "type": "TEXT"
+            }
+          ]
         },
         {
           "name": "Closing Matinee",
           "date": "04-27-2024",
           "description": "in progress",
-          "content": {
-            "type": "TEXT"
-          }
+          "content": [
+            {
+              "type": "TEXT"
+            }
+          ]
         }
       ]
     }

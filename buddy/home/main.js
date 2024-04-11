@@ -8,43 +8,48 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import { getSetting, saveSetting } from "../settings.js";
-import { dayEntryContentTypes, getBuddyInfo, initializePage, initializePassInput, } from "../utils.js";
+import { buddyInfo, dayEntryContentTypes, getBuddyInfo, initializePage, initializePassInput, } from "../utils.js";
+let appElement;
+let dayListElement;
+let instructionsElement;
+let dayEntryContentElement;
 window.onload = () => {
     //#region Element definitions
     // Main window
-    const appElement = document.getElementById("app");
+    appElement = document.getElementById("app");
     const welcomeTitleElement = document.getElementById("welcome");
-    const dayListElement = document.getElementById("day_list");
+    dayListElement = document.getElementById("day_list");
     // Instruction popup
-    const instructionsElement = document.getElementById("instructions");
+    instructionsElement = document.getElementById("instructions");
     const instructionsCloseElement = document.getElementById("instr_close");
     // Day entry content popup
-    const dayEntryContentElement = document.getElementById("day_entry_content");
+    dayEntryContentElement = document.getElementById("day_entry_content");
     const dayEntryContentCloseElement = document.getElementById("daenco_close");
     const iconButtonLabelElements = document.getElementsByClassName("icon_button");
     //#endregion
-    instructionsCloseElement.onclick = () => hideInstructions(appElement, instructionsElement);
+    instructionsCloseElement.onclick = () => hideInstructions();
     dayEntryContentCloseElement.onclick = () => {
-        hideDayEntryContent(appElement, dayEntryContentElement);
+        hideDayEntryContent();
     };
     // instructionsCloseLabelElement.addEventListener("focusin", () => rotateElement(instructionsCloseLabelElement.firstElementChild, -15));
     initializePage();
     getBuddyInfo().then((data) => __awaiter(void 0, void 0, void 0, function* () {
-        let buddyHashes = data["buddies"];
-        welcomeTitleElement.textContent = `Welcome, ${buddyHashes[getSetting("loginHash")]["name"]}!`;
-        parseDayEntries(appElement, dayEntryContentElement, dayListElement, buddyHashes[getSetting("loginHash")]["days"]);
+        let buddyHashes = data.buddies;
+        console.log(getSetting("loginHash"));
+        welcomeTitleElement.textContent = `Welcome, ${buddyHashes[getSetting("loginHash")].name}!`;
+        parseDayEntries();
     }));
     if (eval(getSetting("firstTime")))
-        showInstructions(appElement, instructionsElement);
+        showInstructions();
 };
-function showInstructions(appElement, instructionsElement) {
+function showInstructions() {
     appElement.classList.add("blurred");
     instructionsElement.style.setProperty("display", "grid");
     instructionsElement.animate({
         opacity: "100%",
     }, { duration: 200, fill: "forwards" });
 }
-function hideInstructions(appElement, instructionsElement) {
+function hideInstructions() {
     appElement.classList.remove("blurred");
     instructionsElement
         .animate({
@@ -55,38 +60,41 @@ function hideInstructions(appElement, instructionsElement) {
     });
     saveSetting("firstTime", "false");
 }
-function parseDayEntries(appElement, dayEntryContentElement, listElement, dayList) {
-    const dayEntryTemplate = listElement.children[0];
-    const lockedEntryTemplate = listElement.children[1];
+function parseDayEntries() {
+    const dayEntryTemplate = dayListElement.children[0];
+    const lockedEntryTemplate = dayListElement.children[1];
     let options = {
         weekday: "long",
         month: "long",
         day: "numeric",
         year: "numeric",
     };
-    dayList.forEach((element) => {
+    buddyInfo.buddies[getSetting("loginHash")].days.forEach((element) => {
         var _a;
         let curEntry;
         curEntry = lockedEntryTemplate.cloneNode(true);
-        if (!(new Date(Date.parse(element["date"])) > new Date())) {
+        if (!(new Date(Date.parse(element.date)) > new Date())) {
             curEntry = dayEntryTemplate.cloneNode(true);
-            curEntry.children[1].textContent = element["description"];
+            curEntry.children[1].textContent = element.description;
             curEntry.onclick = () => {
                 if (appElement.classList.contains("blurred"))
                     return;
-                showDayEntryContent(appElement, dayEntryContentElement, element["content"]);
+                showDayEntryContent(buddyInfo.buddies[getSetting("loginHash")].days.indexOf(element), 0);
             };
         }
         curEntry.children[0].children[0].textContent = element["name"];
         curEntry.children[0].children[1].textContent = element["date"].formatDate(options);
-        if (element["content"]["passHash"] !== undefined)
+        if (dayEntryContentTypes[element.content[0].type] ===
+            dayEntryContentTypes.PASSWORD ||
+            dayEntryContentTypes[element.content[0].type] ===
+                dayEntryContentTypes.TEXT_PASSWORD)
             curEntry.classList.add("pass_required");
-        (_a = listElement.lastChild) === null || _a === void 0 ? void 0 : _a.after(curEntry);
+        (_a = dayListElement.lastChild) === null || _a === void 0 ? void 0 : _a.after(curEntry);
     });
     dayEntryTemplate.remove();
     lockedEntryTemplate.remove();
 }
-function showDayEntryContent(appElement, dayEntryContentElement, content) {
+function showDayEntryContent(dayIndex, contentIndex) {
     appElement.classList.add("blurred");
     let childElements = [];
     childElements.push(dayEntryContentElement.children[0], dayEntryContentElement.children[1]);
@@ -102,14 +110,16 @@ function showDayEntryContent(appElement, dayEntryContentElement, content) {
         let passInputElement;
         let spanElement;
         let imageElement;
-        switch (dayEntryContentTypes[content["type"]]) {
+        let content = buddyInfo.buddies[getSetting("loginHash")].days[dayIndex].content;
+        switch (dayEntryContentTypes[content[contentIndex].type]) {
             case dayEntryContentTypes.PASSWORD:
                 divElement = document.createElement("div");
                 divElement.classList.add("pass_input_container");
                 passInputElement = document.createElement("input");
                 initializePassInput(passInputElement, () => {
-                    if (passInputElement.value.hashCode() === parseInt(content["passHash"])) {
-                        showDayEntryContent(appElement, dayEntryContentElement, content["content"]);
+                    if (passInputElement.value.hashCode() ===
+                        parseInt(content[contentIndex].passHash)) {
+                        showDayEntryContent(dayIndex, contentIndex + 1);
                     }
                 });
                 passInputElement.placeholder = "password1234";
@@ -118,13 +128,14 @@ function showDayEntryContent(appElement, dayEntryContentElement, content) {
                 break;
             case dayEntryContentTypes.TEXT_PASSWORD:
                 spanElement = document.createElement("span");
-                spanElement.textContent = atob(content["encodedText"]);
+                spanElement.textContent = atob(content[contentIndex].encodedText);
                 divElement = document.createElement("div");
                 divElement.classList.add("pass_input_container");
                 passInputElement = document.createElement("input");
                 initializePassInput(passInputElement, () => {
-                    if (passInputElement.value.hashCode() === parseInt(content["passHash"])) {
-                        showDayEntryContent(appElement, dayEntryContentElement, content["content"]);
+                    if (passInputElement.value.hashCode() ===
+                        parseInt(content[contentIndex].passHash)) {
+                        showDayEntryContent(dayIndex, contentIndex + 1);
                     }
                 });
                 passInputElement.placeholder = "password1234";
@@ -133,7 +144,7 @@ function showDayEntryContent(appElement, dayEntryContentElement, content) {
                 break;
             case dayEntryContentTypes.TEXT:
                 spanElement = document.createElement("span");
-                spanElement.textContent = atob(content["encodedText"]);
+                spanElement.textContent = atob(content[contentIndex].encodedText);
                 childElements.push(spanElement);
                 break;
             case dayEntryContentTypes.IMAGE:
@@ -156,7 +167,7 @@ function showDayEntryContent(appElement, dayEntryContentElement, content) {
         fadeOutAnim.finish();
     dayEntryContentElement.style.setProperty("display", "flex");
 }
-function hideDayEntryContent(appElement, dayEntryContentElement) {
+function hideDayEntryContent() {
     appElement.classList.remove("blurred");
     dayEntryContentElement
         .animate({ opacity: "0%" }, { duration: 200, fill: "forwards" })

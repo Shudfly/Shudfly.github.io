@@ -1,4 +1,4 @@
-import { loadSettings, saveSetting, settings } from "./settings.js";
+import { getSetting, loadSettings, saveSetting, settings } from "./settings.js";
 
 declare global {
   interface String {
@@ -36,8 +36,32 @@ export enum dayEntryContentTypes {
   TEXT_PASSWORD,
   TEXT,
   IMAGE,
-  TEXT_IMAGE
+  TEXT_IMAGE,
 }
+
+export interface IInfoStructure {
+  buddies: {
+    [key: string]: {
+      name: string;
+      days: [
+        {
+          name: string;
+          date: string;
+          description: string;
+          content: [
+            {
+              type: keyof typeof dayEntryContentTypes;
+              passHash: string;
+              encodedText: string;
+            }
+          ];
+        }
+      ];
+    };
+  };
+}
+
+export let buddyInfo: IInfoStructure;
 
 export async function initializePage(): Promise<any> {
   loadSettings();
@@ -59,7 +83,10 @@ export async function initializePage(): Promise<any> {
   checkLoginValidity();
 }
 
-export function initializePassInput(element: HTMLInputElement, onInput: () => void) {
+export function initializePassInput(
+  element: HTMLInputElement,
+  onInput: () => void
+) {
   element.classList.add("pass_input");
   element.oninput = onInput;
   element.onfocus = () => {
@@ -105,24 +132,26 @@ export async function getPaletteVars(
 export async function getBuddyInfo(): Promise<any> {
   const response = await fetch("/buddy/data/info.json", { cache: "no-store" });
 
-  const data = await response.json();
+  const data: IInfoStructure = await response.json();
   if (response.ok) {
-    return data;
+    return data as IInfoStructure;
   } else {
     return Promise.reject();
   }
 }
 
 export function checkLoginValidity() {
-  if (!eval(settings.loggedIn)) {
+  if (!eval(getSetting("loginHash"))) {
     logout();
   }
 
   getBuddyInfo().then(
-    async (data) => {
+    async (data: IInfoStructure) => {
+      buddyInfo = data;
+
       let valid = false;
-      for (let key in data["buddies"]) {
-        if (settings.loginHash === key) {
+      for (let key in buddyInfo.buddies) {
+        if (getSetting("loginHash") === key) {
           valid = true;
           break;
         }
@@ -154,5 +183,6 @@ export function rotateElement(element: HTMLElement, by: number) {
 export function logout() {
   saveSetting("loggedIn", "false");
   saveSetting("loginHash", "0");
-  if (!window.location.href.endsWith("buddy/")) window.location.href = "/buddy/";
+  if (!window.location.href.endsWith("buddy/"))
+    window.location.href = "/buddy/";
 }

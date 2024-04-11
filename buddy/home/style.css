@@ -44,6 +44,11 @@
   transition: background 0.2s;
 }
 .icon_button svg {
+  margin: auto auto;
+
+  width: 95%;
+  height: 95%;
+
   transition: fill 0.2s;
 }
 .icon_button:hover svg {
