@@ -149,6 +149,7 @@ function showDayEntryContent(dayIndex, contentIndex) {
                 break;
             case dayEntryContentTypes.IMAGE:
                 imageElement = document.createElement("img");
+                imageElement.src = `/buddy/resources/${btoa(content[contentIndex].key).hashCode()}.png`;
                 childElements.push(imageElement);
                 break;
             case dayEntryContentTypes.TEXT_IMAGE:

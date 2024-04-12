@@ -58,11 +58,15 @@
         {
           "name": "Final Dress",
           "date": "04-11-2024",
-          "description": "in progress",
+          "description": "felíz cumpleaños",
           "content": [
             {
               "type": "PASSWORD",
-              "passHash": "337121176364309"
+              "passHash": "6092177300782303"
+            },
+            {
+              "type": "IMAGE",
+              "key": "sound wall"
             }
           ]
         },

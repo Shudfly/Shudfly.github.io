@@ -44,7 +44,7 @@
   transition: background 0.2s;
 }
 .icon_button svg {
-  margin: auto auto;
+  margin: auto;
 
   width: 95%;
   height: 95%;
@@ -192,6 +192,7 @@ li {
   transform: translate(-50%, -50%);
 
   width: 50vw;
+  padding: 1rem;
   border-radius: 20px;
 
   opacity: 0%;
@@ -217,6 +218,14 @@ li {
 #day_entry_content span {
   margin: auto;
   width: 33%;
+}
+#day_entry_content img {
+  margin: auto;
+
+  width: 33vw;
+  border-radius: 10px;
+
+  border: solid 4px var(--mauve-hex)
 }
 
 #daenco_close_label {
@@ -270,15 +279,15 @@ li {
   }
 
   .popup {
-    width: 95vw;
+    width: 85vw;
   }
 
   #day_entry_content {
-    height: min-content;
+    min-height: 40vh;
   }
   #day_entry_content div,
   #day_entry_content span,
   #day_entry_content img {
-    width: 80%;
+    width: 90%;
   }
 }

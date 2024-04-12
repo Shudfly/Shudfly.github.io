@@ -45,8 +45,7 @@ window.onload = () => {
   ) as HTMLCollectionOf<HTMLLabelElement>;
   //#endregion
 
-  instructionsCloseElement.onclick = () =>
-    hideInstructions();
+  instructionsCloseElement.onclick = () => hideInstructions();
   dayEntryContentCloseElement.onclick = () => {
     hideDayEntryContent();
   };
@@ -144,10 +143,7 @@ function parseDayEntries() {
   lockedEntryTemplate.remove();
 }
 
-function showDayEntryContent(
-  dayIndex: number,
-  contentIndex: number
-) {
+function showDayEntryContent(dayIndex: number, contentIndex: number) {
   appElement.classList.add("blurred");
   let childElements: Array<HTMLElement> = [];
 
@@ -186,10 +182,7 @@ function showDayEntryContent(
             passInputElement.value.hashCode() ===
             parseInt(content[contentIndex].passHash)
           ) {
-            showDayEntryContent(
-              dayIndex,
-              contentIndex + 1
-            );
+            showDayEntryContent(dayIndex, contentIndex + 1);
           }
         });
         passInputElement.placeholder = "password1234";
@@ -210,10 +203,7 @@ function showDayEntryContent(
             passInputElement.value.hashCode() ===
             parseInt(content[contentIndex].passHash)
           ) {
-            showDayEntryContent(
-              dayIndex,
-              contentIndex + 1
-            );
+            showDayEntryContent(dayIndex, contentIndex + 1);
           }
         });
         passInputElement.placeholder = "password1234";
@@ -228,6 +218,9 @@ function showDayEntryContent(
         break;
       case dayEntryContentTypes.IMAGE:
         imageElement = document.createElement("img");
+        imageElement.src = `/buddy/resources/${btoa(
+          content[contentIndex].key
+        ).hashCode()}.png`;
         childElements.push(imageElement);
         break;
       case dayEntryContentTypes.TEXT_IMAGE:
@@ -253,8 +246,7 @@ function showDayEntryContent(
   dayEntryContentElement.style.setProperty("display", "flex");
 }
 
-function hideDayEntryContent(
-) {
+function hideDayEntryContent() {
   appElement.classList.remove("blurred");
 
   dayEntryContentElement

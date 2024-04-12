@@ -53,6 +53,7 @@ export interface IInfoStructure {
               type: keyof typeof dayEntryContentTypes;
               passHash: string;
               encodedText: string;
+              key: string;
             }
           ];
         }
