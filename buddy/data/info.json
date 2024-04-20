@@ -2,6 +2,7 @@
   "buddies": {
     "5666436410078975": {
       "name": "Yan",
+      "maxPasswordEntries": 6,
       "days": [
         {
           "name": "Hell Week Day 1",
@@ -73,20 +74,37 @@
         {
           "name": "Opening Night",
           "date": "04-12-2024",
-          "description": "in progress",
+          "description": "I legitimately can't remember.",
           "content": [
             {
-              "type": "TEXT"
+              "type": "TEXT",
+              "encodedText": "aW0gcmVhbGx5IHNvcnJ5IHlhbiBsb2w="
             }
           ]
         },
         {
           "name": "Understudy Night",
           "date": "04-20-2024",
-          "description": "in progress",
+          "description": "The longest hunt yet...",
           "content": [
             {
-              "type": "TEXT"
+              "type": "PASSWORD",
+              "passHash": "6941731293517553"
+            },
+            {
+              "type": "TEXT_PASSWORD",
+              "passHash": "5338449650314668",
+              "encodedText": "VGhlIGZha2VzdCBvZiB0b3BpYXJpZXMgaG91c2VzIGEgY2lyY3VsYXIgZ2lmdCAoYW5kIGEgbmV3IHBhc3N3b3JkISk="
+            },
+            {
+              "type": "TEXT_PASSWORD",
+              "passHash": "3505062308797663",
+              "encodedText": "RGlkIHlvdSBrbm93IHRoYXQgdGhlIGJhdGhyb29tcyBoYXZlIGEgbWFpbnRlbmFuY2UgZG9vcj8="
+            },
+            {
+              "type": "TEXT_IMAGE",
+              "key": "director of my soul",
+              "encodedText": "VGVsbCB0aGlzIHBlcnNvbiBob3cgbWFueSBtaXJyb3JzIHRoZXJlIGFyZSBpbiB0aGUgVGhlYXRlciBHdWlsZCB0byByZWNlaXZlIHlvdXIgZmluYWwgcHJpemUu"
             }
           ]
         },

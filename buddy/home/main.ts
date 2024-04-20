@@ -1,9 +1,13 @@
-import { getSetting, saveSetting, settings } from "../settings.js";
+import {
+  getLockStatus,
+  getSetting,
+  saveSetting,
+  setLockStatus,
+} from "../settings.js";
 import {
   buddyInfo,
   dayEntryContentTypes,
   getBuddyInfo,
-  getPaletteVars,
   IInfoStructure,
   initializePage,
   initializePassInput,
@@ -173,6 +177,7 @@ function showDayEntryContent(dayIndex: number, contentIndex: number) {
 
     switch (dayEntryContentTypes[content[contentIndex].type]) {
       case dayEntryContentTypes.PASSWORD:
+        console.log(getLockStatus(dayIndex, contentIndex));
         divElement = document.createElement("div");
         divElement.classList.add("pass_input_container");
 
@@ -182,6 +187,7 @@ function showDayEntryContent(dayIndex: number, contentIndex: number) {
             passInputElement.value.hashCode() ===
             parseInt(content[contentIndex].passHash)
           ) {
+            setLockStatus(dayIndex, contentIndex, 1);
             showDayEntryContent(dayIndex, contentIndex + 1);
           }
         });
@@ -209,7 +215,7 @@ function showDayEntryContent(dayIndex: number, contentIndex: number) {
         passInputElement.placeholder = "password1234";
 
         divElement.appendChild(passInputElement);
-        childElements.push(divElement);
+        childElements.push(spanElement, divElement);
         break;
       case dayEntryContentTypes.TEXT:
         spanElement = document.createElement("span");
@@ -225,8 +231,14 @@ function showDayEntryContent(dayIndex: number, contentIndex: number) {
         break;
       case dayEntryContentTypes.TEXT_IMAGE:
         spanElement = document.createElement("span");
+        spanElement.textContent = atob(content[contentIndex].encodedText);
+
         imageElement = document.createElement("img");
-        childElements.push(spanElement, imageElement);
+        imageElement.src = `/buddy/resources/${btoa(
+          content[contentIndex].key
+        ).hashCode()}.png`
+
+        childElements.push(imageElement, spanElement);
         break;
     }
 

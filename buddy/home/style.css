@@ -101,7 +101,7 @@ li {
   column-gap: 0.5rem;
 
   height: 10rem;
-  padding: 0.3rem;
+  padding: 0.6rem;
 
   border: solid 1px var(--mantle-hex);
   border-radius: 10px;
@@ -213,6 +213,9 @@ li {
 }
 
 #day_entry_content {
+  display: flex;
+  flex-direction: column;
+
   min-height: 50vh;
 }
 #day_entry_content span {

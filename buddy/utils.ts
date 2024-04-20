@@ -1,4 +1,4 @@
-import { getSetting, loadSettings, saveSetting, settings } from "./settings.js";
+import { getSetting, loadSettings, saveSetting } from "./settings.js";
 
 declare global {
   interface String {
@@ -43,6 +43,7 @@ export interface IInfoStructure {
   buddies: {
     [key: string]: {
       name: string;
+      maxPasswordEntries: number;
       days: [
         {
           name: string;

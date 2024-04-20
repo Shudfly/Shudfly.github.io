@@ -7,7 +7,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import { getSetting, saveSetting } from "../settings.js";
+import { getLockStatus, getSetting, saveSetting, setLockStatus, } from "../settings.js";
 import { buddyInfo, dayEntryContentTypes, getBuddyInfo, initializePage, initializePassInput, } from "../utils.js";
 let appElement;
 let dayListElement;
@@ -113,12 +113,14 @@ function showDayEntryContent(dayIndex, contentIndex) {
         let content = buddyInfo.buddies[getSetting("loginHash")].days[dayIndex].content;
         switch (dayEntryContentTypes[content[contentIndex].type]) {
             case dayEntryContentTypes.PASSWORD:
+                console.log(getLockStatus(dayIndex, contentIndex));
                 divElement = document.createElement("div");
                 divElement.classList.add("pass_input_container");
                 passInputElement = document.createElement("input");
                 initializePassInput(passInputElement, () => {
                     if (passInputElement.value.hashCode() ===
                         parseInt(content[contentIndex].passHash)) {
+                        setLockStatus(dayIndex, contentIndex, 1);
                         showDayEntryContent(dayIndex, contentIndex + 1);
                     }
                 });
@@ -140,7 +142,7 @@ function showDayEntryContent(dayIndex, contentIndex) {
                 });
                 passInputElement.placeholder = "password1234";
                 divElement.appendChild(passInputElement);
-                childElements.push(divElement);
+                childElements.push(spanElement, divElement);
                 break;
             case dayEntryContentTypes.TEXT:
                 spanElement = document.createElement("span");
@@ -154,8 +156,10 @@ function showDayEntryContent(dayIndex, contentIndex) {
                 break;
             case dayEntryContentTypes.TEXT_IMAGE:
                 spanElement = document.createElement("span");
+                spanElement.textContent = atob(content[contentIndex].encodedText);
                 imageElement = document.createElement("img");
-                childElements.push(spanElement, imageElement);
+                imageElement.src = `/buddy/resources/${btoa(content[contentIndex].key).hashCode()}.png`;
+                childElements.push(imageElement, spanElement);
                 break;
         }
         dayEntryContentElement.replaceChildren();
