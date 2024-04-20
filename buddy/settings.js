@@ -1,4 +1,4 @@
-import { buddyInfo } from "./utils";
+import { buddyInfo } from "./utils.js";
 let settings = {
     loggedIn: "true",
     loginHash: "0",
